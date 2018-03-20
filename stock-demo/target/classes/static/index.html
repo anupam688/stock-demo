@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stock View</title>
+</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>
+
+	<div ng-app="myApp" ng-controller="myCtrl">
+
+		<p>Please find Stock Information Below</p>
+		<table border="1">
+			<th>Stock Id</th>
+			<th>Stock Name</th>
+			<th>Current Price</th>
+			<th>Last Updated</th>
+			<tr ng-repeat="x in stockinfo">
+				<td>{{x.stockId}}</td>
+				<td>{{x.stockName}}</td>
+				<td>{{x.currentPrice}}</td>
+				<td>{{x.lastUpdate}}</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope) {
+			var url = "http://localhost:8088/api/stocks";
+			jQuery.ajaxSetup({
+				async : false
+			});
+			$.get(url, function(data, status) {
+				$scope.stockinfo = data;
+			});
+		});
+	</script>
+
+</body>
+</html>
